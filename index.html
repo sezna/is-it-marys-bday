@@ -14,12 +14,11 @@
     ></script>
     <script>
       const date = new Date();
-      var solar = Solar.fromYmd(
-        date.getFullYear(),
-        date.getMonth(),
-        date.getDate(),
-      );
+      // `fromDate` takes care of converting JS's default 0-based month to 1-based:
+      // https://github.com/6tail/lunar-javascript/blob/abfcd39fe6d209446dca4660446125f9c8064d0c/lunar.js#L15
+      var solar = Solar.fromDate(date);
       var lunar = solar.getLunar();
+      // Expect 1-based human readabale day and 0-based computer-readable month.
       if (lunar.getDay() == 13 && lunar.getMonth() == 6) {
         console.log("yes");
         document.getElementById("main").innerText = "Yes";
