@@ -4,28 +4,47 @@
   <head>
     <meta charset="utf-8" />
   </head>
-  <div id="main"></div>
   <body>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/lunar-javascript/1.6.2/lunar.js"
-      integrity="sha512-HvSGfdi8vIplBc7cNhxj1HrdsfasNoQI9kRjekwEy5nx1uFgSI3c0uPd8GKvCQ12Aefxk5xmrEswYm+26CSTlg=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
-    <script>
-      const date = new Date();
-      // `fromDate` takes care of converting JS's default 0-based month to 1-based:
-      // https://github.com/6tail/lunar-javascript/blob/abfcd39fe6d209446dca4660446125f9c8064d0c/lunar.js#L15
-      var solar = Solar.fromDate(date);
-      var lunar = solar.getLunar();
-      // Expect 1-based human readabale day and 0-based computer-readable month.
-      if (lunar.getDay() == 13 && lunar.getMonth() == 6) {
-        console.log("yes");
-        document.getElementById("main").innerText = "Yes";
-      } else {
-        console.log("no");
-        document.getElementById("main").innerText = "No";
+    <style>
+      #main {
+        font-size: 2em;
+        text-align: center;
+        margin-top: 50vh;
       }
+      li {
+        font-size: 2em;
+        text-align: center;
+      }
+    </style>
+    <div id="main">What is Mary's favorite Nintendo franchise?</div>
+    <div id="hints">
+    <ol id="hintlist">
+    </ol>
+    </div>
+    <script>
+      let ix = 1;
+      // interval in ms
+      let interval = 11000;
+
+      function setHint(hint) {
+        const local_ix = ix;
+        ix += 1;
+
+      setTimeout(() => {
+       const li = document.createElement("li");
+        li.textContent = hint
+        document.getElementById("hintlist").appendChild(li);
+        }, local_ix * interval);
+      }
+
+      setHint("Hint: think like hackerman");
+      setHint("Hint: the answer is attached to something made of glass");
+      setHint("Hint: de-X where X is a Googler's worst enemy");
+
+      window.zelda = () => {
+        document.getElementById("main").innerText = "Correct! Mary loves Zelda! Your next clue is: In the darkest of timelines, I find myself downstairs with a goatee.";
+      };
+      window.Zelda = window.zelda;
     </script>
   </body>
 </html>
